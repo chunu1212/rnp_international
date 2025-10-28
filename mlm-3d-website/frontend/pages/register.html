@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"><title>Register</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+<div class="container">
+  <h2>Register</h2>
+  <form action="/backend/register.php" method="POST">
+    <input name="name" placeholder="Full name" required><br>
+    <input name="email" type="email" placeholder="Email" required><br>
+    <input name="password" type="password" placeholder="Password" required><br>
+    <input name="referred_by" id="referred_by" placeholder="Referral code (optional)"><br>
+    <button>Register</button>
+  </form>
+</div>
+<script>
+  const urlParams = new URLSearchParams(window.location.search);
+  const ref = urlParams.get('ref');
+  if(ref) document.getElementById('referred_by').value = ref;
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+CREATE DATABASE IF NOT EXISTS mlm_db;
+USE mlm_db;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(150) UNIQUE,
+  password VARCHAR(255),
+  ref_code VARCHAR(50) UNIQUE,
+  referred_by VARCHAR(50),
+  parent_id INT DEFAULT NULL,
+  avatar_url VARCHAR(255) DEFAULT NULL,
+  earnings DECIMAL(10,2) DEFAULT 0,
+  level1_income DECIMAL(10,2) DEFAULT 0,
+  level2_income DECIMAL(10,2) DEFAULT 0,
+  level3_income DECIMAL(10,2) DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS admin (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) UNIQUE,
+  password VARCHAR(255) NOT NULL
+);
+
+INSERT INTO admin (username, password) VALUES ('admin', SHA2('admin123',256));
+
+CREATE TABLE IF NOT EXISTS earnings_adjustments (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  admin_id INT NOT NULL,
+  user_id INT NOT NULL,
+  amount DECIMAL(10,2) NOT NULL,
+  note VARCHAR(255),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
